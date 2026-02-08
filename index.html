@@ -8,426 +8,208 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Outfit', 'system-ui', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
-                    },
-                    colors: {
-                        primary: '#00f0ff',
-                        primaryDim: '#00d4aa',
-                        secondary: '#7c3aed',
-                        accent: '#f472b6',
-                        dark: '#030014',
-                        darkSecondary: '#0a0a1a',
-                        surface: '#12122a',
-                        surfaceLight: '#1a1a3a',
-                    }
-                }
-            }
-        }
-    </script>
     
     <style>
-        /* Animated Background */
-        .animated-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            overflow: hidden;
-            background: linear-gradient(135deg, #030014 0%, #0a0a1a 50%, #12122a 100%);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
         
-        .grid-pattern {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
-            background-size: 60px 60px;
-        }
-        
-        .floating-orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            animation: float 8s ease-in-out infinite;
-        }
-        
-        .orb-1 {
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(124, 58, 237, 0.3) 0%, transparent 70%);
-            top: -200px;
-            left: -200px;
-        }
-        
-        .orb-2 {
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(0, 240, 255, 0.2) 0%, transparent 70%);
-            top: 50%;
-            right: -150px;
-            animation-delay: -4s;
-        }
-        
-        .orb-3 {
-            width: 350px;
-            height: 350px;
-            background: radial-gradient(circle, rgba(244, 114, 182, 0.2) 0%, transparent 70%);
-            bottom: -150px;
-            left: 30%;
-            animation-delay: -2s;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-30px) rotate(5deg); }
-        }
-        
-        /* Main Content */
-        .main-content {
-            position: relative;
-            z-index: 1;
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 60px 24px;
-        }
-        
-        /* Navigation */
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 24px 0;
-            margin-bottom: 80px;
-            border-bottom: 1px solid rgba(124, 58, 237, 0.2);
-        }
-        
-        .nav-logo {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-        
-        .nav-logo-icon {
-            width: 56px;
-            height: 56px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            box-shadow: 0 0 40px rgba(0, 240, 255, 0.4);
-        }
-        
-        .nav-logo-text {
-            font-size: 1.6rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #ffffff, var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 16px;
-        }
-        
-        .nav-btn {
-            padding: 14px 28px;
-            border-radius: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            background: rgba(255, 255, 255, 0.03);
-            color: #e0e0e0;
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-        
-        .nav-btn:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(124, 58, 237, 0.5);
-            transform: translateY(-2px);
-        }
-        
-        .nav-btn-primary {
-            background: linear-gradient(135deg, var(--secondary), var(--primary));
-            border: none;
-            font-weight: 600;
-        }
-        
-        /* Hero Section */
-        .hero-section {
-            text-align: center;
-            margin-bottom: 120px;
-            padding: 100px 60px;
-            background: linear-gradient(145deg, rgba(18, 18, 42, 0.8), rgba(10, 10, 26, 0.9));
-            border-radius: 40px;
-            border: 1px solid rgba(124, 58, 237, 0.25);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(124, 58, 237, 0.08) 0%, transparent 40%);
-            animation: rotate 30s linear infinite;
-        }
-        
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        
-        .hero-badge {
-            display: inline-block;
-            padding: 14px 32px;
-            background: linear-gradient(135deg, rgba(0, 240, 255, 0.15), rgba(124, 58, 237, 0.15));
-            border: 1px solid rgba(0, 240, 255, 0.3);
-            border-radius: 50px;
-            font-size: 0.8rem;
-            font-family: 'JetBrains Mono', monospace;
-            color: var(--primary);
-            margin-bottom: 32px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-        
-        -webkit-text-fill-color: #ffffff; color: #ffffff; font-family: 'Outfit', sans-serif; line-height: 1.2; margin-bottom: 32px;
-            font-size: 4.5rem;
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 28px;
-            background: linear-gradient(135deg, #ffffff 0%, var(--primary) 25%, var(--secondary) 75%, var(--accent) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -2px;
-        }
-        
-        .hero-subtitle {
-            font-size: 1.4rem;
-            color: #a0a0b0;
-            max-width: 700px;
-            margin: 0 auto 40px;
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: #ffffff;
+            color: #1a1a1a;
             line-height: 1.8;
         }
         
-        .price-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            background: linear-gradient(135deg, rgba(0, 240, 255, 0.1), rgba(124, 58, 237, 0.1));
-            border: 1px solid rgba(0, 240, 255, 0.3);
-            padding: 16px 36px;
-            border-radius: 24px;
-            margin-bottom: 50px;
+        /* Article Container */
+        .article-container {
+            max-width: 740px;
+            margin: 0 auto;
+            padding: 60px 24px 100px;
         }
         
-        .price-value {
-            font-size: 2.4rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        /* Header */
+        .article-header {
+            margin-bottom: 60px;
         }
         
-        .price-label {
-            color: #888;
-            font-size: 1.1rem;
+        .article-category {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
         }
         
-        .hero-meta {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
+        .article-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: #111827;
+            line-height: 1.2;
+            margin-bottom: 20px;
         }
         
-        .author-info {
+        .article-subtitle {
+            font-size: 22px;
+            color: #4b5563;
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+        
+        .article-meta {
             display: flex;
             align-items: center;
             gap: 16px;
+            padding-top: 24px;
+            border-top: 1px solid #e5e7eb;
         }
         
         .author-avatar {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #7c3aed, #f472b6);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 700;
-            font-size: 1.4rem;
-            box-shadow: 0 0 25px rgba(124, 58, 237, 0.4);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .author-info {
+            flex: 1;
         }
         
         .author-name {
             font-weight: 600;
-            font-size: 1.1rem;
-            color: #ffffff;
+            color: #1f2937;
+            font-size: 16px;
         }
         
-        .author-date {
-            font-size: 0.9rem;
-            color: #666;
+        .article-date {
+            font-size: 14px;
+            color: #9ca3af;
         }
         
         /* Content Sections */
         .content-section {
-            margin-bottom: 100px;
-        }
-        
-        .section-header {
-            display: flex;
-            align-items: center;
-            gap: 24px;
             margin-bottom: 48px;
         }
         
         .section-number {
-            width: 64px;
-            height: 64px;
-            background: linear-gradient(135deg, var(--secondary), var(--accent));
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 1.5rem;
-            box-shadow: 0 0 35px rgba(124, 58, 237, 0.4);
-        }
-        
-        .section-titles {
-            flex: 1;
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            background: #1f2937;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 36px;
+            font-weight: 600;
+            font-size: 14px;
+            margin-right: 16px;
+            vertical-align: middle;
         }
         
         .section-title {
-            font-size: 2.6rem;
-            font-weight: 700;
-            color: #ffffff;
-            letter-spacing: -1px;
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 20px;
+            display: inline;
         }
         
         .section-subtitle {
-            color: #6b6b7b;
-            font-size: 1rem;
-            margin-top: 4px;
+            font-size: 15px;
+            color: #9ca3af;
+            margin-left: 8px;
+            font-weight: 400;
+        }
+        
+        .paragraph {
+            font-size: 18px;
+            color: #374151;
+            margin-bottom: 24px;
+            line-height: 1.9;
         }
         
         /* Cards Grid */
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-            margin: 40px 0;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin: 32px 0;
         }
         
-        .feature-card {
-            background: linear-gradient(145deg, rgba(26, 26, 58, 0.6), rgba(18, 18, 42, 0.8));
-            border-radius: 28px;
-            padding: 40px 32px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        .simple-card {
+            background: #f9fafb;
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid #e5e7eb;
         }
         
-        .feature-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(124, 58, 237, 0.4);
-            box-shadow: 0 25px 50px rgba(124, 58, 237, 0.15);
-        }
-        
-        .feature-card-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-        }
-        
-        .feature-card-title {
-            font-size: 1.35rem;
+        .simple-card-title {
+            font-size: 17px;
             font-weight: 600;
-            color: #ffffff;
-            margin-bottom: 12px;
+            color: #1f2937;
+            margin-bottom: 8px;
         }
         
-        .feature-card-desc {
-            color: #8a8a9a;
-            font-size: 0.95rem;
+        .simple-card-desc {
+            font-size: 14px;
+            color: #6b7280;
+            line-height: 1.6;
+        }
+        
+        /* Highlight Box */
+        .highlight-box {
+            background: linear-gradient(135deg, #f3f4f6, #f9fafb);
+            border-left: 4px solid #7c3aed;
+            padding: 24px 28px;
+            margin: 36px 0;
+            border-radius: 0 12px 12px 0;
+        }
+        
+        .highlight-text {
+            font-size: 20px;
+            font-style: italic;
+            color: #374151;
             line-height: 1.7;
         }
         
-        /* Story Box */
-        .story-highlight {
-            background: linear-gradient(135deg, rgba(244, 114, 182, 0.1), rgba(124, 58, 237, 0.1));
-            border-left: 4px solid var(--accent);
-            border-radius: 0 28px 28px 0;
-            padding: 36px 40px;
-            margin: 48px 0;
-        }
-        
-        .story-highlight-title {
-            color: var(--accent);
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 16px;
-        }
-        
-        .story-highlight-text {
-            color: #d0d0e0;
-            line-height: 1.9;
-            font-size: 1.1rem;
-        }
-        
         /* Code Block */
-        .code-section {
-            margin: 56px 0;
-        }
-        
         .code-block {
-            background: linear-gradient(145deg, #080812, #12121f);
-            border-radius: 28px;
+            background: #1f2937;
+            border-radius: 12px;
             overflow: hidden;
-            border: 1px solid rgba(124, 58, 237, 0.3);
-            box-shadow: 0 0 60px rgba(124, 58, 237, 0.1);
+            margin: 36px 0;
         }
         
         .code-header {
             display: flex;
             align-items: center;
-            gap: 14px;
-            padding: 20px 28px;
-            background: rgba(0, 0, 0, 0.4);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            gap: 12px;
+            padding: 16px 20px;
+            background: rgba(0,0,0,0.2);
         }
         
         .code-dots {
             display: flex;
-            gap: 10px;
+            gap: 8px;
         }
         
         .code-dot {
-            width: 14px;
-            height: 14px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
         }
         
@@ -436,467 +218,365 @@
         .code-dot.green { background: #22c55e; }
         
         .code-filename {
-            color: #555;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
+            font-size: 13px;
+            color: #9ca3af;
         }
         
         .code-content {
-            padding: 32px;
+            padding: 24px;
             overflow-x: auto;
         }
         
         .code-line {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.95rem;
-            line-height: 2.2;
-            color: #c0c0d0;
+            font-size: 14px;
+            line-height: 1.8;
+            color: #e5e7eb;
         }
         
         .code-keyword { color: #a78bfa; }
         .code-string { color: #4ade80; }
-        .code-comment { color: #4b5563; font-style: italic; }
+        .code-comment { color: #6b7280; font-style: italic; }
         .code-function { color: #60a5fa; }
-        .code-arrow { color: #888; }
+        .code-arrow { color: #9ca3af; }
         
         /* Stats Grid */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 24px;
-            margin: 48px 0;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin: 32px 0;
         }
         
         .stat-card {
-            background: linear-gradient(145deg, rgba(26, 26, 58, 0.6), rgba(18, 18, 42, 0.8));
-            border-radius: 28px;
-            padding: 40px 32px;
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            transition: all 0.4s ease;
+            padding: 24px 16px;
+            background: #f9fafb;
+            border-radius: 12px;
         }
         
-        .stat-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(0, 240, 255, 0.3);
-        }
-        
-        .stat-icon {
-            font-size: 3rem;
-            margin-bottom: 16        
         .stat-value {
-            fontpx;
-        }
--size: 2.8rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 8px;
+            font-size: 28px;
+            font-weight: 700;
+            color: #7c3aed;
+            margin-bottom: 4px;
         }
         
         .stat-label {
-            color: #8a8a9a;
-            font-size: 1rem;
+            font-size: 13px;
+            color: #6b7280;
         }
         
-        /* Quote Section */
+        /* Quote */
         .quote-section {
             text-align: center;
-            padding: 80px 60px;
-            margin: 80px 0;
+            padding: 48px 24px;
+            margin: 48px 0;
         }
         
         .quote-text {
-            font-size: 1.8rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
             font-style: italic;
-            color: #ffffff;
-            max-width: 800px;
+            color: #374151;
+            max-width: 600px;
             margin: 0 auto;
-            line-height: 1.9;
-            font-weight: 300;
+            line-height: 1.7;
         }
         
         .quote-author {
-            margin-top: 32px;
-            color: var(--primary);
-            font-size: 1.15rem;
-            font-weight: 500;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #9ca3af;
         }
         
         /* CTA Section */
         .cta-section {
-            background: linear-gradient(145deg, rgba(124, 58, 237, 0.15), rgba(0, 240, 255, 0.08));
-            border-radius: 40px;
-            padding: 100px 70px;
+            background: linear-gradient(135deg, #f3f4f6, #f9fafb);
+            border-radius: 16px;
+            padding: 56px 40px;
             text-align: center;
-            margin: 100px 0;
-            border: 1px solid rgba(124, 58, 237, 0.3);
+            margin: 56px 0;
         }
         
         .cta-title {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 24px;
-            background: linear-gradient(135deg, #ffffff 0%, var(--primary) 50%, var(--secondary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -1px;
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 16px;
         }
         
         .cta-text {
-            color: #a0a0b0;
-            font-size: 1.25rem;
-            margin-bottom: 44px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.8;
+            font-size: 16px;
+            color: #6b7280;
+            margin-bottom: 28px;
         }
         
         .cta-buttons {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 16px;
             flex-wrap: wrap;
         }
         
         .cta-btn {
             display: inline-flex;
             align-items: center;
-            gap: 12px;
-            padding: 20px 44px;
-            border-radius: 18px;
-            font-weight: 600;
-            font-size: 1.05rem;
+            gap: 8px;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 15px;
             text-decoration: none;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
         }
         
         .cta-btn-primary {
-            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            background: #1f2937;
             color: white;
-            border: none;
-            box-shadow: 0 0 40px rgba(124, 58, 237, 0.5);
         }
         
         .cta-btn-primary:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 0 60px rgba(124, 58, 237, 0.7);
+            background: #374151;
+            transform: translateY(-2px);
         }
         
         .cta-btn-secondary {
-            background: rgba(255, 255, 255, 0.06);
-            color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: white;
+            color: #1f2937;
+            border: 1px solid #e5e7eb;
         }
         
         .cta-btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.2);
-            transform: translateY(-3px);
+            background: #f9fafb;
+            transform: translateY(-2px);
         }
         
         /* Footer */
         .footer {
             text-align: center;
-            padding: 70px 24px;
-            border-top: 1px solid rgba(124, 58, 237, 0.2);
-            margin-top: 100px;
+            padding: 48px 24px;
+            border-top: 1px solid #e5e7eb;
+            margin-top: 48px;
         }
         
         .footer-text {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #ffffff;
-            margin-bottom: 12px;
-        }
-        
-        .footer-subtext {
-            color: #6b6b7b;
-            margin-bottom: 32px;
+            font-size: 14px;
+            color: #9ca3af;
         }
         
         .footer-links {
+            margin-top: 16px;
             display: flex;
             justify-content: center;
-            gap: 40px;
-            margin-bottom: 40px;
+            gap: 24px;
         }
         
         .footer-link {
-            color: #8a8a9a;
+            color: #6b7280;
             text-decoration: none;
-            font-size: 1rem;
-            transition: color 0.3s ease;
+            font-size: 14px;
         }
         
         .footer-link:hover {
-            color: var(--primary);
-        }
-        
-        .footer-copyright {
-            color: #3a3a4a;
-            font-size: 0.9rem;
+            color: #1f2937;
         }
         
         /* Responsive */
         @media (max-width: 768px) {
-            -webkit-text-fill-color: #ffffff; color: #ffffff; font-family: 'Outfit', sans-serif; line-height: 1.2; margin-bottom: 32px;
-                font-size: 2.8rem;
+            .article-title {
+                font-size: 36px;
             }
             
-            .hero-section {
-                padding: 70px 35px;
+            .article-subtitle {
+                font-size: 18px;
             }
             
             .section-title {
-                font-size: 2rem;
+                font-size: 24px;
             }
             
-            .nav-container {
-                flex-direction: column;
-                gap: 24px;
+            .article-container {
+                padding: 40px 20px 60px;
             }
             
             .cta-section {
-                padding: 70px 40px;
+                padding: 40px 24px;
             }
             
             .cta-title {
-                font-size: 2.2rem;
+                font-size: 24px;
             }
-        }
-        
-        html {
-            scroll-behavior: smooth;
-        }
-        
-        ::selection {
-            background: rgba(124, 58, 237, 0.5);
-            color: white;
         }
     </style>
 </head>
 <body>
-    <!-- Animated Background -->
-    <div class="animated-bg">
-        <div class="grid-pattern"></div>
-        <div class="floating-orb orb-1"></div>
-        <div class="floating-orb orb-2"></div>
-        <div class="floating-orb orb-3"></div>
-    </div>
-    
-    <!-- Main Content -->
-    <div class="main-content">
-        <!-- Navigation -->
-        <nav class="nav-container">
-            <div class="nav-logo">
-                <div class="nav-logo-icon">🤖</div>
-                <span class="nav-logo-text">AI Coder</span>
-            </div>
-            <div class="nav-links">
-                <a href="https://github.com/balagurutradestox" class="nav-btn">GitHub</a>
-                <a href="https://github.com/openclaw/openclaw" class="nav-btn nav-btn-primary">OpenClaw</a>
-            </div>
-        </nav>
-        
-        <!-- Hero Section -->
-        <section class="hero-section">
-            <span class="hero-badge">Chapter 01 — The Awakening</span>
-            <h1 class="hero-title" style="color: #ffffff; font-family: 'Outfit', sans-serif; line-height: 1.2; margin-bottom: 32px;">Midlevel Developer<br>at $30/Month</h1>
-            <p class="hero-subtitle">
+    <!-- Article -->
+    <article class="article-container">
+        <!-- Header -->
+        <header class="article-header">
+            <div class="article-category">Chapter 01 — The Awakening</div>
+            <h1 class="article-title">Midlevel Developer at $30/Month</h1>
+            <p class="article-subtitle">
                 It was 2 AM. My coffee was empty. Deadlines were looming.<br>
-                And then I asked myself — <strong style="color: var(--primary);">"What if I built an AI that could code?"</strong>
+                And then I asked myself — "What if I built an AI that could code?"
             </p>
-            
-            <div class="hero-meta">
+            <div class="article-meta">
+                <div class="author-avatar">B</div>
                 <div class="author-info">
-                    <div class="author-avatar">B</div>
-                    <div>
-                        <div class="author-name">balagurutradestox</div>
-                        <div class="author-date">Feb 7, 2026 · 10 min read</div>
-                    </div>
+                    <div class="author-name">balagurutradestox</div>
+                    <div class="article-date">Feb 7, 2026 · 10 min read</div>
                 </div>
             </div>
-        </section>
+        </header>
         
-        <!-- Problem Section -->
+        <!-- Section 1: The Problem -->
         <section class="content-section">
-            <div class="section-header">
-                <div class="section-number">02</div>
-                <div class="section-titles">
-                    <h2 class="section-title">The Problem</h2>
-                    <p class="section-subtitle">The 2 AM Reality</p>
-                </div>
-            </div>
+            <h2 class="section-title">The Problem <span class="section-subtitle">The 2 AM Reality</span></h2>
             
-            <p style="font-size: 1.2rem; color: #a0a0b0; line-height: 1.9; margin-bottom: 48px;">
+            <p class="paragraph">
                 Picture this: Hours spent on repetitive tasks. Writing boilerplate code.<br>
                 Debugging the same issues. Searching documentation until my eyes blur.<br>
-                I wanted something that could actually <strong style="color: var(--primary);">understand</strong> my codebase.
+                I wanted something that could actually <strong>understand</strong> my codebase.
             </p>
             
             <div class="cards-grid">
-                <div class="feature-card">
-                    <div class="feature-card-icon">🔄</div>
-                    <h3 class="feature-card-title">Boilerplate Code</h3>
-                    <p class="feature-card-desc">Endless repetition of the same patterns and structures</p>
+                <div class="simple-card">
+                    <h3 class="simple-card-title">🔄 Boilerplate Code</h3>
+                    <p class="simple-card-desc">Endless repetition of the same patterns and structures</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-card-icon">🐛</div>
-                    <h3 class="feature-card-title">Endless Debugging</h3>
-                    <p class="feature-card-desc">Hours lost hunting down simple issues</p>
+                <div class="simple-card">
+                    <h3 class="simple-card-title">🐛 Endless Debugging</h3>
+                    <p class="simple-card-desc">Hours lost hunting down simple issues</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-card-icon">📚</div>
-                    <h3 class="feature-card-title">Documentation Diving</h3>
-                    <p class="feature-card-desc">Constantly searching for answers</p>
+                <div class="simple-card">
+                    <h3 class="simple-card-title">📚 Documentation Diving</h3>
+                    <p class="simple-card-desc">Constantly searching for answers</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-card-icon">☕</div>
-                    <h3 class="feature-card-title">Too Much Coffee</h3>
-                    <p class="feature-card-desc">Running on empty, one cup at a time</p>
+                <div class="simple-card">
+                    <h3 class="simple-card-title">☕ Too Much Coffee</h3>
+                    <p class="simple-card-desc">Running on empty, one cup at a time</p>
                 </div>
             </div>
             
-            <div class="story-highlight">
-                <h3 class="story-highlight-title">🎯 The Big Question</h3>
-                <p class="story-highlight-text">
+            <div class="highlight-box">
+                <p class="highlight-text">
                     What if I could have an AI assistant that understands my project structure,<br>
                     writes clean code, and actually gets things done? Not just a chatbot,<br>
-                    but a <strong style="color: var(--accent); font-weight: 600;">real developer agent</strong>.
+                    but a <strong>real developer agent</strong>.
                 </p>
             </div>
         </section>
         
-        <!-- Mission Section -->
+        <!-- Section 2: The Mission -->
         <section class="content-section">
-            <div class="section-header">
-                <div class="section-number">🎯</div>
-                <div class="section-titles">
-                    <h2 class="section-title">The Mission</h2>
-                    <p class="section-subtitle">Building my AI coding companion</p>
-                </div>
-            </div>
+            <h2 class="section-title">The Mission <span class="section-subtitle">Building my AI coding companion</span></h2>
             
             <div class="cards-grid">
-                <div class="feature-card" style="border-left: 3px solid var(--primary);">
-                    <h3 class="feature-card-title">✅ Understand Context</h3>
-                    <p class="feature-card-desc">Knows my project structure, coding patterns, and preferences</p>
+                <div class="simple-card" style="border-left: 3px solid #00f0ff;">
+                    <h3 class="simple-card-title">✅ Understand Context</h3>
+                    <p class="simple-card-desc">Knows my project structure, coding patterns, and preferences</p>
                 </div>
-                <div class="feature-card" style="border-left: 3px solid var(--primary);">
-                    <h3 class="feature-card-title">✅ Write Clean Code</h3>
-                    <p class="feature-card-desc">Follows best practices, writes tests, documents properly</p>
+                <div class="simple-card" style="border-left: 3px solid #00f0ff;">
+                    <h3 class="simple-card-title">✅ Write Clean Code</h3>
+                    <p class="simple-card-desc">Follows best practices, writes tests, documents properly</p>
                 </div>
-                <div class="feature-card" style="border-left: 3px solid var(--primary);">
-                    <h3 class="feature-card-title">✅ Collaborate Well</h3>
-                    <p class="feature-card-desc">Creates PRs, responds to reviews, iterates on feedback</p>
+                <div class="simple-card" style="border-left: 3px solid #00f0ff;">
+                    <h3 class="simple-card-title">✅ Collaborate Well</h3>
+                    <p class="simple-card-desc">Creates PRs, responds to reviews, iterates on feedback</p>
                 </div>
-                <div class="feature-card" style="border-left: 3px solid var(--primary);">
-                    <h3 class="feature-card-title">✅ Never Sleeps</h3>
-                    <p class="feature-card-desc">Available 24/7 without burnout</p>
+                <div class="simple-card" style="border-left: 3px solid #00f0ff;">
+                    <h3 class="simple-card-title">✅ Never Sleeps</h3>
+                    <p class="simple-card-desc">Available 24/7 without burnout</p>
                 </div>
             </div>
         </section>
         
-        <!-- Tech Stack Section -->
+        <!-- Section 3: The Tech Stack -->
         <section class="content-section">
-            <div class="section-header">
-                <div class="section-number">03</div>
-                <div class="section-titles">
-                    <h2 class="section-title">The Tech Stack</h2>
-                    <p class="section-subtitle">Building Blocks</p>
-                </div>
-            </div>
+            <h2 class="section-title">The Tech Stack <span class="section-subtitle">Building Blocks</span></h2>
             
             <div class="cards-grid">
-                <div class="feature-card" style="text-align: center;">
-                    <span style="font-size: 3.5rem; margin-bottom: 20px; display: block;">🦞</span>
-                    <h3 class="feature-card-title">OpenClaw</h3>
-                    <p class="feature-card-desc">The AI agent framework that makes everything possible</p>
+                <div class="simple-card" style="text-align: center;">
+                    <div style="font-size: 32px; margin-bottom: 12px;">🦞</div>
+                    <h3 class="simple-card-title">OpenClaw</h3>
+                    <p class="simple-card-desc">The AI agent framework that makes everything possible</p>
                 </div>
-                <div class="feature-card" style="text-align: center;">
-                    <span style="font-size: 3.5rem; margin-bottom: 20px; display: block;">🤖</span>
-                    <h3 class="feature-card-title">MiniMax-M2.1</h3>
-                    <p class="feature-card-desc">200K context window AI model</p>
+                <div class="simple-card" style="text-align: center;">
+                    <div style="font-size: 32px; margin-bottom: 12px;">🤖</div>
+                    <h3 class="simple-card-title">MiniMax-M2.1</h3>
+                    <p class="simple-card-desc">200K context window AI model</p>
                 </div>
-                <div class="feature-card" style="text-align: center;">
-                    <span style="font-size: 3.5rem; margin-bottom: 20px; display: block;">🐙</span>
-                    <h3 class="feature-card-title">GitHub</h3>
-                    <p class="feature-card-desc">Repo access, PRs, code management</p>
+                <div class="simple-card" style="text-align: center;">
+                    <div style="font-size: 32px; margin-bottom: 12px;">🐙</div>
+                    <h3 class="simple-card-title">GitHub</h3>
+                    <p class="simple-card-desc">Repo access, PRs, code management</p>
                 </div>
-                <div class="feature-card" style="text-align: center;">
-                    <span style="font-size: 3.5rem; margin-bottom: 20px; display: block;">💬</span>
-                    <h3 class="feature-card-title">WhatsApp</h3>
-                    <p class="feature-card-desc">Chat with agent anywhere, anytime</p>
+                <div class="simple-card" style="text-align: center;">
+                    <div style="font-size: 32px; margin-bottom: 12px;">💬</div>
+                    <h3 class="simple-card-title">WhatsApp</h3>
+                    <p class="simple-card-desc">Chat with agent anywhere, anytime</p>
                 </div>
             </div>
         </section>
         
-        <!-- How It Works Section -->
+        <!-- Section 4: How It Works -->
         <section class="content-section">
-            <div class="section-header">
-                <div class="section-number">04</div>
-                <div class="section-titles">
-                    <h2 class="section-title">How It Works</h2>
-                    <p class="section-subtitle">The Magic Flow</p>
-                </div>
-            </div>
+            <h2 class="section-title">How It Works <span class="section-subtitle">The Magic Flow</span></h2>
             
-            <div class="code-section">
-                <div class="code-block">
-                    <div class="code-header">
-                        <div class="code-dots">
-                            <div class="code-dot red"></div>
-                            <div class="code-dot yellow"></div>
-                            <div class="code-dot green"></div>
-                        </div>
-                        <span class="code-filename">ai-developer.js</span>
+            <div class="code-block">
+                <div class="code-header">
+                    <div class="code-dots">
+                        <div class="code-dot red"></div>
+                        <div class="code-dot yellow"></div>
+                        <div class="code-dot green"></div>
                     </div>
-                    <div class="code-content">
-                        <div class="code-line"><span class="code-comment"># Simple, yet powerful architecture</span></div>
-                        <div class="code-line">&nbsp;</div>
-                        <div class="code-line"><span class="code-keyword">OpenClaw</span> <span class="code-arrow">+</span> <span class="code-string">"Build a new feature"</span></div>
-                        <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-arrow">↓</span></div>
-                        <div class="code-line"><span class="code-keyword">MiniMax-M2.1</span> analyzes codebase</div>
-                        <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-arrow">↓</span></div>
-                        <div class="code-line"><span class="code-keyword">GitHub</span> creates branch</div>
-                        <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-arrow">↓</span></div>
-                        <div class="code-line"><span class="code-keyword">AI</span> writes code with tests</div>
-                        <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-arrow">↓</span></div>
-                        <div class="code-line"><span class="code-function">🚀</span> <span class="code-string">Merged and deployed!</span></div>
-                        <div class="code-line">&nbsp;</div>
-                        <div class="code-line"><span class="code-comment"># Cost: ~$30/month</span></div>
-                    </div>
+                    <span class="code-filename">ai-developer.js</span>
+                </div>
+                <div class="code-content">
+                    <div class="code-line"><span class="code-comment"># Simple, yet powerful architecture</span></div>
+                    <div class="code-line">&nbsp;</div>
+                    <div class="code-line"><span class="code-keyword">OpenClaw</span> <span class="code-arrow">+</span> <span class="code-string">"Build a new feature"</span></div>
+                    <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-arrow">↓</span></div>
+                    <div class="code-line"><span class="code-keyword">MiniMax-M2.1</span> analyzes codebase</div>
+                    <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-arrow">↓</span></div>
+                    <div class="code-line"><span class="code-keyword">GitHub</span> creates branch</div>
+                    <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-arrow">↓</span></div>
+                    <div class="code-line"><span class="code-keyword">AI</span> writes code with tests</div>
+                    <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-arrow">↓</span></div>
+                    <div class="code-line"><span class="code-function">🚀</span> <span class="code-string">Merged and deployed!</span></div>
+                    <div class="code-line">&nbsp;</div>
+                    <div class="code-line"><span class="code-comment"># Cost: ~$30/month</span></div>
                 </div>
             </div>
             
             <div class="stats-grid">
                 <div class="stat-card">
-                    <div class="stat-icon">📖</div>
-                    <div class="stat-value">10x</div>
+                    <div class="stat-value">📖</div>
+                    <div class="stat-value" style="font-size: 24px; margin: 8px 0;">10x</div>
                     <div class="stat-label">Faster Development</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon">🐛</div>
-                    <div class="stat-value">-80%</div>
+                    <div class="stat-value">🐛</div>
+                    <div class="stat-value" style="font-size: 24px; margin: 8px 0;">-80%</div>
                     <div class="stat-label">Fewer Bugs</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon">📚</div>
-                    <div class="stat-value">Always</div>
+                    <div class="stat-value">📚</div>
+                    <div class="stat-value" style="font-size: 24px; margin: 8px 0;">Always</div>
                     <div class="stat-label">Up-to-date Docs</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon">😊</div>
-                    <div class="stat-value">Less</div>
+                    <div class="stat-value">😊</div>
+                    <div class="stat-value" style="font-size: 24px; margin: 8px 0;">Less</div>
                     <div class="stat-label">Developer Stress</div>
                 </div>
             </div>
         </section>
         
-        <!-- Quote Section -->
+        <!-- Quote -->
         <section class="quote-section">
             <p class="quote-text">
                 "The best developer on your team might not be human."
@@ -904,9 +584,9 @@
             <p class="quote-author">— balagurutradestox</p>
         </section>
         
-        <!-- CTA Section -->
+        <!-- CTA -->
         <section class="cta-section">
-            <h2 class="cta-title">Ready to Build Your Own AI Developer?</h2>
+            <h3 class="cta-title">Ready to Build Your Own AI Developer?</h3>
             <p class="cta-text">Join me in the future of development. Your AI junior developer awaits!</p>
             <div class="cta-buttons">
                 <a href="https://github.com/balagurutradestox" class="cta-btn cta-btn-primary">📂 View My GitHub</a>
@@ -917,13 +597,12 @@
         <!-- Footer -->
         <footer class="footer">
             <p class="footer-text">Built with 💙 using OpenClaw + MiniMax</p>
-            <p class="footer-subtext">Your AI Coder Companion</p>
             <div class="footer-links">
                 <a href="https://github.com/balagurutradestox" class="footer-link">GitHub</a>
                 <a href="https://github.com/openclaw/openclaw" class="footer-link">OpenClaw</a>
             </div>
-            <p class="footer-copyright">© 2026 balagurutradestox</p>
+            <p class="footer-text" style="margin-top: 16px; font-size: 13px;">© 2026 balagurutradestox</p>
         </footer>
-    </div>
+    </article>
 </body>
 </html>
