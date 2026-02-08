@@ -8,7 +8,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -16,22 +16,18 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        sans: ['Outfit', 'system-ui', 'sans-serif'],
                         mono: ['JetBrains Mono', 'monospace'],
                     },
                     colors: {
-                        primary: '#00d4ff',
-                        primaryLight: '#00f5ff',
+                        primary: '#00f0ff',
+                        primaryDim: '#00d4aa',
                         secondary: '#7c3aed',
-                        secondaryLight: '#8b5cf6',
                         accent: '#f472b6',
-                        accentLight: '#fb7185',
                         dark: '#030014',
-                        card: '#0f0f23',
-                        cardLight: '#1a1a35',
-                        text: '#e2e8f0',
-                        textMuted: '#94a3b8',
-                        textDark: '#64748b',
+                        darkSecondary: '#0a0a1a',
+                        surface: '#12122a',
+                        surfaceLight: '#1a1a3a',
                     }
                 }
             }
@@ -39,117 +35,124 @@
     </script>
     
     <style>
-        .dotted-glow-bg {
+        /* Animated Background */
+        .animated-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none;
             z-index: 0;
             overflow: hidden;
+            background: linear-gradient(135deg, #030014 0%, #0a0a1a 50%, #12122a 100%);
         }
         
-        .dotted-glow-bg::before {
-            content: '';
+        .grid-pattern {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             background-image: 
-                radial-gradient(circle, rgba(0, 212, 255, 0.4) 1px, transparent 1px),
-                radial-gradient(circle, rgba(124, 58, 237, 0.4) 1px, transparent 1px),
-                radial-gradient(circle, rgba(244, 114, 182, 0.3) 1px, transparent 1px);
-            background-size: 45px 45px, 75px 75px, 110px 110px;
-            background-position: 0 0, 22px 22px, 45px 45px;
-            animation: dotsMove 25s linear infinite;
+                linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
         }
         
-        @keyframes dotsMove {
-            from { transform: translate(0, 0); }
-            to { transform: translate(-90px, -90px); }
-        }
-        
-        .glow-spot {
+        .floating-orb {
             position: absolute;
-            width: 350px;
-            height: 350px;
             border-radius: 50%;
             filter: blur(80px);
-            opacity: 0.2;
-            animation: glowPulse 5s ease-in-out infinite;
+            animation: float 8s ease-in-out infinite;
         }
         
-        .glow-spot-1 {
-            top: -150px;
-            left: -150px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.3) 0%, transparent 70%);
+            top: -200px;
+            left: -200px;
         }
         
-        .glow-spot-2 {
-            top: 40%;
-            right: -180px;
-            background: linear-gradient(135deg, var(--secondary), var(--accent));
-            animation-delay: 2.5s;
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0, 240, 255, 0.2) 0%, transparent 70%);
+            top: 50%;
+            right: -150px;
+            animation-delay: -4s;
         }
         
-        .glow-spot-3 {
-            bottom: -180px;
+        .orb-3 {
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(244, 114, 182, 0.2) 0%, transparent 70%);
+            bottom: -150px;
             left: 30%;
-            background: linear-gradient(135deg, var(--accent), var(--primary));
-            animation-delay: 5s;
+            animation-delay: -2s;
         }
         
-        @keyframes glowPulse {
-            0%, 100% { opacity: 0.2; transform: scale(1); }
-            50% { opacity: 0.35; transform: scale(1.15); }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(5deg); }
         }
         
-        .content {
+        /* Main Content */
+        .main-content {
             position: relative;
             z-index: 1;
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 50px 24px;
+            padding: 60px 24px;
         }
         
-        .header {
+        /* Navigation */
+        .nav-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 24px 0;
-            margin-bottom: 70px;
-            border-bottom: 1px solid rgba(124, 58, 237, 0.3);
+            margin-bottom: 80px;
+            border-bottom: 1px solid rgba(124, 58, 237, 0.2);
         }
         
-        .logo {
+        .nav-logo {
             display: flex;
             align-items: center;
-            gap: 14px;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text);
+            gap: 16px;
         }
         
-        .logo-icon {
-            width: 52px;
-            height: 52px;
+        .nav-logo-icon {
+            width: 56px;
+            height: 56px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 16px;
+            border-radius: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.8rem;
-            box-shadow: 0 0 45px rgba(0, 212, 255, 0.5);
+            box-shadow: 0 0 40px rgba(0, 240, 255, 0.4);
+        }
+        
+        .nav-logo-text {
+            font-size: 1.6rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 16px;
         }
         
         .nav-btn {
-            padding: 14px 26px;
+            padding: 14px 28px;
             border-radius: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.03);
+            color: #e0e0e0;
             text-decoration: none;
             font-size: 0.95rem;
             font-weight: 500;
@@ -157,39 +160,38 @@
         }
         
         .nav-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(124, 58, 237, 0.6);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(124, 58, 237, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(124, 58, 237, 0.5);
+            transform: translateY(-2px);
         }
         
         .nav-btn-primary {
             background: linear-gradient(135deg, var(--secondary), var(--primary));
             border: none;
             font-weight: 600;
-            box-shadow: 0 0 30px rgba(124, 58, 237, 0.5);
         }
         
-        .hero {
+        /* Hero Section */
+        .hero-section {
             text-align: center;
-            margin-bottom: 100px;
-            padding: 120px 60px;
-            background: linear-gradient(145deg, rgba(15, 15, 35, 0.9), rgba(10, 10, 20, 0.95));
-            border-radius: 36px;
-            border: 1px solid rgba(124, 58, 237, 0.3);
+            margin-bottom: 120px;
+            padding: 100px 60px;
+            background: linear-gradient(145deg, rgba(18, 18, 42, 0.8), rgba(10, 10, 26, 0.9));
+            border-radius: 40px;
+            border: 1px solid rgba(124, 58, 237, 0.25);
             position: relative;
             overflow: hidden;
         }
         
-        .hero::before {
+        .hero-section::before {
             content: '';
             position: absolute;
             top: -50%;
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(124, 58, 237, 0.12) 0%, transparent 50%);
-            animation: rotate 40s linear infinite;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.08) 0%, transparent 40%);
+            animation: rotate 30s linear infinite;
         }
         
         @keyframes rotate {
@@ -197,66 +199,61 @@
             to { transform: rotate(360deg); }
         }
         
-        .hero-content {
-            position: relative;
-            z-index: 2;
-        }
-        
-        .chapter-badge {
+        .hero-badge {
             display: inline-block;
-            padding: 12px 28px;
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(124, 58, 237, 0.2));
-            border: 1px solid rgba(0, 212, 255, 0.4);
+            padding: 14px 32px;
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.15), rgba(124, 58, 237, 0.15));
+            border: 1px solid rgba(0, 240, 255, 0.3);
             border-radius: 50px;
             font-size: 0.8rem;
             font-family: 'JetBrains Mono', monospace;
-            color: var(--primaryLight);
-            margin-bottom: 35px;
+            color: var(--primary);
+            margin-bottom: 32px;
             letter-spacing: 2px;
             text-transform: uppercase;
         }
         
-        .hero h1 {
-            font-size: 4rem;
+        .hero-title {
+            font-size: 4.5rem;
             font-weight: 800;
             line-height: 1.1;
-            margin-bottom: 30px;
-            background: linear-gradient(135deg, #ffffff 0%, var(--primaryLight) 25%, var(--secondary) 75%, var(--accentLight) 100%);
+            margin-bottom: 28px;
+            background: linear-gradient(135deg, #ffffff 0%, var(--primary) 25%, var(--secondary) 75%, var(--accent) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             letter-spacing: -2px;
         }
         
-        .hero-description {
-            font-size: 1.35rem;
-            color: var(--textMuted);
-            max-width: 650px;
-            margin: 0 auto 45px;
-            line-height: 1.85;
+        .hero-subtitle {
+            font-size: 1.4rem;
+            color: #a0a0b0;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            line-height: 1.8;
         }
         
-        .price-tag {
+        .price-badge {
             display: inline-flex;
             align-items: center;
             gap: 12px;
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(124, 58, 237, 0.1));
-            border: 1px solid rgba(0, 212, 255, 0.35);
-            padding: 16px 32px;
-            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.1), rgba(124, 58, 237, 0.1));
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            padding: 16px 36px;
+            border-radius: 24px;
+            margin-bottom: 50px;
         }
         
-        .price-amount {
-            font-size: 2.2rem;
+        .price-value {
+            font-size: 2.4rem;
             font-weight: 800;
-            background: linear-gradient(135deg, var(--primaryLight), var(--secondary));
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
         
-        .price-text {
-            color: var(--textMuted);
+        .price-label {
+            color: #888;
             font-size: 1.1rem;
         }
         
@@ -264,11 +261,10 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 24px;
-            margin-top: 55px;
+            gap: 20px;
         }
         
-        .author {
+        .author-info {
             display: flex;
             align-items: center;
             gap: 16px;
@@ -290,123 +286,129 @@
         .author-name {
             font-weight: 600;
             font-size: 1.1rem;
-            color: var(--text);
+            color: #ffffff;
         }
         
         .author-date {
             font-size: 0.9rem;
-            color: var(--textDark);
+            color: #666;
         }
         
-        .section {
+        /* Content Sections */
+        .content-section {
             margin-bottom: 100px;
         }
         
         .section-header {
             display: flex;
             align-items: center;
-            gap: 26px;
-            margin-bottom: 50px;
+            gap: 24px;
+            margin-bottom: 48px;
         }
         
         .section-number {
-            width: 60px;
-            height: 60px;
+            width: 64px;
+            height: 64px;
             background: linear-gradient(135deg, var(--secondary), var(--accent));
-            border-radius: 18px;
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            font-size: 1.4rem;
-            flex-shrink: 0;
-            box-shadow: 0 0 30px rgba(124, 58, 237, 0.4);
+            font-size: 1.5rem;
+            box-shadow: 0 0 35px rgba(124, 58, 237, 0.4);
+        }
+        
+        .section-titles {
+            flex: 1;
         }
         
         .section-title {
-            font-size: 2.4rem;
+            font-size: 2.6rem;
             font-weight: 700;
-            color: var(--text);
+            color: #ffffff;
             letter-spacing: -1px;
         }
         
         .section-subtitle {
-            color: var(--textDark);
+            color: #6b6b7b;
             font-size: 1rem;
             margin-top: 4px;
         }
         
+        /* Cards Grid */
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 26px;
-            margin: 45px 0;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin: 40px 0;
         }
         
-        .card {
-            background: linear-gradient(145deg, var(--card), var(--cardLight));
+        .feature-card {
+            background: linear-gradient(145deg, rgba(26, 26, 58, 0.6), rgba(18, 18, 42, 0.8));
             border-radius: 28px;
-            padding: 36px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 40px 32px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        .card:hover {
-            background: linear-gradient(145deg, var(--cardLight), rgba(26, 26, 53, 0.8));
-            transform: translateY(-12px);
-            border-color: rgba(124, 58, 237, 0.5);
-            box-shadow: 0 30px 60px rgba(124, 58, 237, 0.2);
+        .feature-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(124, 58, 237, 0.4);
+            box-shadow: 0 25px 50px rgba(124, 58, 237, 0.15);
         }
         
-        .card-icon {
+        .feature-card-icon {
             font-size: 3rem;
-            margin-bottom: 22px;
-            display: block;
+            margin-bottom: 20px;
         }
         
-        .card-title {
-            font-size: 1.3rem;
+        .feature-card-title {
+            font-size: 1.35rem;
             font-weight: 600;
-            color: var(--text);
+            color: #ffffff;
             margin-bottom: 12px;
         }
         
-        .card-desc {
-            color: var(--textMuted);
+        .feature-card-desc {
+            color: #8a8a9a;
             font-size: 0.95rem;
             line-height: 1.7;
         }
         
-        .story-box {
-            background: linear-gradient(135deg, rgba(244, 114, 182, 0.12), rgba(124, 58, 237, 0.1));
+        /* Story Box */
+        .story-highlight {
+            background: linear-gradient(135deg, rgba(244, 114, 182, 0.1), rgba(124, 58, 237, 0.1));
             border-left: 4px solid var(--accent);
             border-radius: 0 28px 28px 0;
-            padding: 36px;
-            margin: 50px 0;
+            padding: 36px 40px;
+            margin: 48px 0;
         }
         
-        .story-box h3 {
-            color: var(--accentLight);
-            margin-bottom: 18px;
-            font-size: 1.3rem;
+        .story-highlight-title {
+            color: var(--accent);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 16px;
         }
         
-        .story-box p {
-            color: var(--text);
+        .story-highlight-text {
+            color: #d0d0e0;
             line-height: 1.9;
             font-size: 1.1rem;
         }
         
+        /* Code Block */
         .code-section {
-            margin: 55px 0;
+            margin: 56px 0;
         }
         
         .code-block {
-            background: linear-gradient(145deg, #0a0a14, #12121f);
+            background: linear-gradient(145deg, #080812, #12121f);
             border-radius: 28px;
             overflow: hidden;
-            border: 1px solid rgba(124, 58, 237, 0.35);
-            box-shadow: 0 0 70px rgba(124, 58, 237, 0.15);
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            box-shadow: 0 0 60px rgba(124, 58, 237, 0.1);
         }
         
         .code-header {
@@ -414,13 +416,18 @@
             align-items: center;
             gap: 14px;
             padding: 20px 28px;
-            background: rgba(0, 0, 0, 0.5);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(0, 0, 0, 0.4);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .code-dots {
+            display: flex;
+            gap: 10px;
         }
         
         .code-dot {
-            width: 15px;
-            height: 15px;
+            width: 14px;
+            height: 14px;
             border-radius: 50%;
         }
         
@@ -428,9 +435,8 @@
         .code-dot.yellow { background: #eab308; }
         .code-dot.green { background: #22c55e; }
         
-        .code-title {
-            margin-left: 14px;
-            color: var(--textDark);
+        .code-filename {
+            color: #555;
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.85rem;
         }
@@ -444,50 +450,105 @@
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.95rem;
             line-height: 2.2;
-            color: var(--text);
+            color: #c0c0d0;
         }
         
         .code-keyword { color: #a78bfa; }
         .code-string { color: #4ade80; }
-        .code-comment { color: #475569; font-style: italic; }
+        .code-comment { color: #4b5563; font-style: italic; }
         .code-function { color: #60a5fa; }
+        .code-arrow { color: #888; }
         
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+            margin: 48px 0;
+        }
+        
+        .stat-card {
+            background: linear-gradient(145deg, rgba(26, 26, 58, 0.6), rgba(18, 18, 42, 0.8));
+            border-radius: 28px;
+            padding: 40px 32px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.4s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(0, 240, 255, 0.3);
+        }
+        
+        .stat-icon {
+            font-size: 3rem;
+            margin-bottom: 16        
+        .stat-value {
+            fontpx;
+        }
+-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+        
+        .stat-label {
+            color: #8a8a9a;
+            font-size: 1rem;
+        }
+        
+        /* Quote Section */
+        .quote-section {
+            text-align: center;
+            padding: 80px 60px;
+            margin: 80px 0;
+        }
+        
+        .quote-text {
+            font-size: 1.8rem;
+            font-style: italic;
+            color: #ffffff;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.9;
+            font-weight: 300;
+        }
+        
+        .quote-author {
+            margin-top: 32px;
+            color: var(--primary);
+            font-size: 1.15rem;
+            font-weight: 500;
+        }
+        
+        /* CTA Section */
         .cta-section {
-            background: linear-gradient(145deg, rgba(124, 58, 237, 0.18), rgba(0, 212, 255, 0.08));
-            border-radius: 36px;
+            background: linear-gradient(145deg, rgba(124, 58, 237, 0.15), rgba(0, 240, 255, 0.08));
+            border-radius: 40px;
             padding: 100px 70px;
             text-align: center;
             margin: 100px 0;
-            border: 1px solid rgba(124, 58, 237, 0.35);
-            position: relative;
+            border: 1px solid rgba(124, 58, 237, 0.3);
         }
         
-        .cta-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--primary), var(--secondary), var(--accent), transparent);
-        }
-        
-        .cta-section h2 {
+        .cta-title {
             font-size: 3rem;
             font-weight: 800;
-            margin-bottom: 28px;
-            background: linear-gradient(135deg, #ffffff 0%, var(--primaryLight) 50%, var(--secondary) 100%);
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #ffffff 0%, var(--primary) 50%, var(--secondary) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
             letter-spacing: -1px;
         }
         
-        .cta-section p {
-            color: var(--textMuted);
-            font-size: 1.2rem;
-            margin-bottom: 45px;
-            max-width: 550px;
+        .cta-text {
+            color: #a0a0b0;
+            font-size: 1.25rem;
+            margin-bottom: 44px;
+            max-width: 600px;
             margin-left: auto;
             margin-right: auto;
             line-height: 1.8;
@@ -496,7 +557,7 @@
         .cta-buttons {
             display: flex;
             justify-content: center;
-            gap: 22px;
+            gap: 20px;
             flex-wrap: wrap;
         }
         
@@ -504,7 +565,7 @@
             display: inline-flex;
             align-items: center;
             gap: 12px;
-            padding: 20px 40px;
+            padding: 20px 44px;
             border-radius: 18px;
             font-weight: 600;
             font-size: 1.05rem;
@@ -520,62 +581,40 @@
         }
         
         .cta-btn-primary:hover {
-            transform: translateY(-4px) scale(1.03);
+            transform: translateY(-3px) scale(1.02);
             box-shadow: 0 0 60px rgba(124, 58, 237, 0.7);
         }
         
         .cta-btn-secondary {
-            background: rgba(255, 255, 255, 0.08);
-            color: var(--text);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.06);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.12);
         }
         
         .cta-btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.12);
-            border-color: rgba(255, 255, 255, 0.25);
-            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
         }
         
-        .quote-section {
-            text-align: center;
-            padding: 80px 60px;
-            margin: 80px 0;
-        }
-        
-        .quote {
-            font-size: 1.7rem;
-            font-style: italic;
-            color: var(--text);
-            max-width: 750px;
-            margin: 0 auto;
-            line-height: 1.9;
-            font-weight: 300;
-        }
-        
-        .quote-author {
-            margin-top: 35px;
-            color: var(--primaryLight);
-            font-size: 1.1rem;
-            font-weight: 500;
-        }
-        
+        /* Footer */
         .footer {
             text-align: center;
             padding: 70px 24px;
-            border-top: 1px solid rgba(124, 58, 237, 0.25);
+            border-top: 1px solid rgba(124, 58, 237, 0.2);
             margin-top: 100px;
         }
         
-        .footer-title {
+        .footer-text {
             font-size: 1.5rem;
             font-weight: 600;
-            color: var(--text);
-            margin-bottom: 14px;
+            color: #ffffff;
+            margin-bottom: 12px;
         }
         
-        .footer-desc {
-            color: var(--textDark);
-            margin-bottom: 35px;
+        .footer-subtext {
+            color: #6b6b7b;
+            margin-bottom: 32px;
         }
         
         .footer-links {
@@ -586,44 +625,45 @@
         }
         
         .footer-link {
-            color: var(--textMuted);
+            color: #8a8a9a;
             text-decoration: none;
             font-size: 1rem;
-            transition: all 0.3s ease;
+            transition: color 0.3s ease;
         }
         
         .footer-link:hover {
-            color: var(--primaryLight);
+            color: var(--primary);
         }
         
         .footer-copyright {
-            color: #3f3f46;
+            color: #3a3a4a;
             font-size: 0.9rem;
         }
         
+        /* Responsive */
         @media (max-width: 768px) {
-            .hero {
-                padding: 80px 35px;
+            .hero-title {
+                font-size: 2.8rem;
             }
             
-            .hero h1 {
-                font-size: 2.6rem;
-            }
-            
-            .header {
-                flex-direction: column;
-                gap: 24px;
+            .hero-section {
+                padding: 70px 35px;
             }
             
             .section-title {
-                font-size: 1.8rem;
+                font-size: 2rem;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                gap: 24px;
             }
             
             .cta-section {
                 padding: 70px 40px;
             }
             
-            .cta-section h2 {
+            .cta-title {
                 font-size: 2.2rem;
             }
         }
@@ -639,162 +679,169 @@
     </style>
 </head>
 <body>
-    <div class="dotted-glow-bg">
-        <div class="glow-spot glow-spot-1"></div>
-        <div class="glow-spot glow-spot-2"></div>
-        <div class="glow-spot glow-spot-3"></div>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="grid-pattern"></div>
+        <div class="floating-orb orb-1"></div>
+        <div class="floating-orb orb-2"></div>
+        <div class="floating-orb orb-3"></div>
     </div>
     
-    <div class="content">
-        <header class="header">
-            <div class="logo">
-                <div class="logo-icon">🤖</div>
-                <span>AI Coder</span>
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Navigation -->
+        <nav class="nav-container">
+            <div class="nav-logo">
+                <div class="nav-logo-icon">🤖</div>
+                <span class="nav-logo-text">AI Coder</span>
             </div>
-            <nav class="flex gap-4">
+            <div class="nav-links">
                 <a href="https://github.com/balagurutradestox" class="nav-btn">GitHub</a>
                 <a href="https://github.com/openclaw/openclaw" class="nav-btn nav-btn-primary">OpenClaw</a>
-            </nav>
-        </header>
+            </div>
+        </nav>
         
-        <section class="hero">
-            <div class="hero-content">
-                <span class="chapter-badge">Chapter 01 — The Awakening</span>
-                <h1>Midlevel Developer<br>at $30/Month</h1>
-                <p class="hero-description">
-                    It was 2 AM. My coffee was empty. Deadlines were looming. 
-                    And then I asked myself — <span style="color: var(--primaryLight); font-weight: 600;">"What if I built an AI that could code?"</span>
-                </p>
-                <div class="price-tag">
-                    <span class="price-amount">$30</span>
-                    <span class="price-text">/ month</span>
-                </div>
-                <div class="hero-meta">
-                    <div class="author">
-                        <div class="author-avatar">B</div>
-                        <div>
-                            <div class="author-name">balagurutradestox</div>
-                            <div class="author-date">Feb 7, 2026 · 10 min read</div>
-                        </div>
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <span class="hero-badge">Chapter 01 — The Awakening</span>
+            <h1 class="hero-title">Midlevel Developer<br>at $30/Month</h1>
+            <p class="hero-subtitle">
+                It was 2 AM. My coffee was empty. Deadlines were looming.<br>
+                And then I asked myself — <strong style="color: var(--primary);">"What if I built an AI that could code?"</strong>
+            </p>
+            <div class="price-badge">
+                <span class="price-value">$30</span>
+                <span class="price-label">/ month</span>
+            </div>
+            <div class="hero-meta">
+                <div class="author-info">
+                    <div class="author-avatar">B</div>
+                    <div>
+                        <div class="author-name">balagurutradestox</div>
+                        <div class="author-date">Feb 7, 2026 · 10 min read</div>
                     </div>
                 </div>
             </div>
         </section>
         
-        <section class="section">
+        <!-- Problem Section -->
+        <section class="content-section">
             <div class="section-header">
                 <div class="section-number">02</div>
-                <div>
+                <div class="section-titles">
                     <h2 class="section-title">The Problem</h2>
                     <p class="section-subtitle">The 2 AM Reality</p>
                 </div>
             </div>
             
-            <p style="font-size: 1.2rem; color: var(--textMuted); line-height: 1.9; margin-bottom: 50px;">
-                Picture this: Hours spent on repetitive tasks. Writing boilerplate code. 
-                Debugging the same issues. Searching documentation until my eyes blur. 
-                I wanted something that could actually <span style="color: var(--primaryLight); font-weight: 600;">understand</span> my codebase.
+            <p style="font-size: 1.2rem; color: #a0a0b0; line-height: 1.9; margin-bottom: 48px;">
+                Picture this: Hours spent on repetitive tasks. Writing boilerplate code.<br>
+                Debugging the same issues. Searching documentation until my eyes blur.<br>
+                I wanted something that could actually <strong style="color: var(--primary);">understand</strong> my codebase.
             </p>
             
             <div class="cards-grid">
-                <div class="card">
-                    <span class="card-icon">🔄</span>
-                    <h3 class="card-title">Boilerplate Code</h3>
-                    <p class="card-desc">Endless repetition of the same patterns and structures</p>
+                <div class="feature-card">
+                    <div class="feature-card-icon">🔄</div>
+                    <h3 class="feature-card-title">Boilerplate Code</h3>
+                    <p class="feature-card-desc">Endless repetition of the same patterns and structures</p>
                 </div>
-                <div class="card">
-                    <span class="card-icon">🐛</span>
-                    <h3 class="card-title">Endless Debugging</h3>
-                    <p class="card-desc">Hours lost hunting down simple issues</p>
+                <div class="feature-card">
+                    <div class="feature-card-icon">🐛</div>
+                    <h3 class="feature-card-title">Endless Debugging</h3>
+                    <p class="feature-card-desc">Hours lost hunting down simple issues</p>
                 </div>
-                <div class="card">
-                    <span class="card-icon">📚</span>
-                    <h3 class="card-title">Documentation Diving</h3>
-                    <p class="card-desc">Constantly searching for answers</p>
+                <div class="feature-card">
+                    <div class="feature-card-icon">📚</div>
+                    <h3 class="feature-card-title">Documentation Diving</h3>
+                    <p class="feature-card-desc">Constantly searching for answers</p>
                 </div>
-                <div class="card">
-                    <span class="card-icon">☕</span>
-                    <h3 class="card-title">Too Much Coffee</h3>
-                    <p class="card-desc">Running on empty, one cup at a time</p>
+                <div class="feature-card">
+                    <div class="feature-card-icon">☕</div>
+                    <h3 class="feature-card-title">Too Much Coffee</h3>
+                    <p class="feature-card-desc">Running on empty, one cup at a time</p>
                 </div>
             </div>
             
-            <div class="story-box">
-                <h3>🎯 The Big Question</h3>
-                <p>
-                    What if I could have an AI assistant that understands my project structure, 
-                    writes clean code, and actually gets things done? Not just a chatbot, 
-                    but a <span style="color: var(--accentLight); font-weight: 600;">real developer agent</span>.
+            <div class="story-highlight">
+                <h3 class="story-highlight-title">🎯 The Big Question</h3>
+                <p class="story-highlight-text">
+                    What if I could have an AI assistant that understands my project structure,<br>
+                    writes clean code, and actually gets things done? Not just a chatbot,<br>
+                    but a <strong style="color: var(--accent); font-weight: 600;">real developer agent</strong>.
                 </p>
             </div>
         </section>
         
-        <section class="section">
+        <!-- Mission Section -->
+        <section class="content-section">
             <div class="section-header">
                 <div class="section-number">🎯</div>
-                <div>
+                <div class="section-titles">
                     <h2 class="section-title">The Mission</h2>
                     <p class="section-subtitle">Building my AI coding companion</p>
                 </div>
             </div>
             
             <div class="cards-grid">
-                <div class="card" style="border-left: 3px solid var(--primary);">
-                    <h3 class="card-title">✅ Understand Context</h3>
-                    <p class="card-desc">Knows my project structure, coding patterns, and preferences</p>
+                <div class="feature-card" style="border-left: 3px solid var(--primary);">
+                    <h3 class="feature-card-title">✅ Understand Context</h3>
+                    <p class="feature-card-desc">Knows my project structure, coding patterns, and preferences</p>
                 </div>
-                <div class="card" style="border-left: 3px solid var(--primary);">
-                    <h3 class="card-title">✅ Write Clean Code</h3>
-                    <p class="card-desc">Follows best practices, writes tests, documents properly</p>
+                <div class="feature-card" style="border-left: 3px solid var(--primary);">
+                    <h3 class="feature-card-title">✅ Write Clean Code</h3>
+                    <p class="feature-card-desc">Follows best practices, writes tests, documents properly</p>
                 </div>
-                <div class="card" style="border-left: 3px solid var(--primary);">
-                    <h3 class="card-title">✅ Collaborate Well</h3>
-                    <p class="card-desc">Creates PRs, responds to reviews, iterates on feedback</p>
+                <div class="feature-card" style="border-left: 3px solid var(--primary);">
+                    <h3 class="feature-card-title">✅ Collaborate Well</h3>
+                    <p class="feature-card-desc">Creates PRs, responds to reviews, iterates on feedback</p>
                 </div>
-                <div class="card" style="border-left: 3px solid var(--primary);">
-                    <h3 class="card-title">✅ Never Sleeps</h3>
-                    <p class="card-desc">Available 24/7 without burnout</p>
+                <div class="feature-card" style="border-left: 3px solid var(--primary);">
+                    <h3 class="feature-card-title">✅ Never Sleeps</h3>
+                    <p class="feature-card-desc">Available 24/7 without burnout</p>
                 </div>
             </div>
         </section>
         
-        <section class="section">
+        <!-- Tech Stack Section -->
+        <section class="content-section">
             <div class="section-header">
                 <div class="section-number">03</div>
-                <div>
+                <div class="section-titles">
                     <h2 class="section-title">The Tech Stack</h2>
                     <p class="section-subtitle">Building Blocks</p>
                 </div>
             </div>
             
             <div class="cards-grid">
-                <div class="card" style="text-align: center;">
+                <div class="feature-card" style="text-align: center;">
                     <span style="font-size: 3.5rem; margin-bottom: 20px; display: block;">🦞</span>
-                    <h3 class="card-title">OpenClaw</h3>
-                    <p class="card-desc">The AI agent framework that makes everything possible</p>
+                    <h3 class="feature-card-title">OpenClaw</h3>
+                    <p class="feature-card-desc">The AI agent framework that makes everything possible</p>
                 </div>
-                <div class="card" style="text-align: center;">
+                <div class="feature-card" style="text-align: center;">
                     <span style="font-size: 3.5rem; margin-bottom: 20px; display: block;">🤖</span>
-                    <h3 class="card-title">MiniMax-M2.1</h3>
-                    <p class="card-desc">200K context window AI model</p>
+                    <h3 class="feature-card-title">MiniMax-M2.1</h3>
+                    <p class="feature-card-desc">200K context window AI model</p>
                 </div>
-                <div class="card" style="text-align: center;">
+                <div class="feature-card" style="text-align: center;">
                     <span style="font-size: 3.5rem; margin-bottom: 20px; display: block;">🐙</span>
-                    <h3 class="card-title">GitHub</h3>
-                    <p class="card-desc">Repo access, PRs, code management</p>
+                    <h3 class="feature-card-title">GitHub</h3>
+                    <p class="feature-card-desc">Repo access, PRs, code management</p>
                 </div>
-                <div class="card" style="text-align: center;">
+                <div class="feature-card" style="text-align: center;">
                     <span style="font-size: 3.5rem; margin-bottom: 20px; display: block;">💬</span>
-                    <h3 class="card-title">WhatsApp</h3>
-                    <p class="card-desc">Chat with agent anywhere, anytime</p>
+                    <h3 class="feature-card-title">WhatsApp</h3>
+                    <p class="feature-card-desc">Chat with agent anywhere, anytime</p>
                 </div>
             </div>
         </section>
         
-        <section class="section">
+        <!-- How It Works Section -->
+        <section class="content-section">
             <div class="section-header">
                 <div class="section-number">04</div>
-                <div>
+                <div class="section-titles">
                     <h2 class="section-title">How It Works</h2>
                     <p class="section-subtitle">The Magic Flow</p>
                 </div>
@@ -803,22 +850,24 @@
             <div class="code-section">
                 <div class="code-block">
                     <div class="code-header">
-                        <div class="code-dot red"></div>
-                        <div class="code-dot yellow"></div>
-                        <div class="code-dot green"></div>
-                        <span class="code-title">ai-developer.js</span>
+                        <div class="code-dots">
+                            <div class="code-dot red"></div>
+                            <div class="code-dot yellow"></div>
+                            <div class="code-dot green"></div>
+                        </div>
+                        <span class="code-filename">ai-developer.js</span>
                     </div>
                     <div class="code-content">
                         <div class="code-line"><span class="code-comment"># Simple, yet powerful architecture</span></div>
                         <div class="code-line">&nbsp;</div>
-                        <div class="code-line"><span class="code-keyword">OpenClaw</span> + <span class="code-string">"Build a new feature"</span></div>
-                        <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;↓</div>
+                        <div class="code-line"><span class="code-keyword">OpenClaw</span> <span class="code-arrow">+</span> <span class="code-string">"Build a new feature"</span></div>
+                        <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-arrow">↓</span></div>
                         <div class="code-line"><span class="code-keyword">MiniMax-M2.1</span> analyzes codebase</div>
-                        <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;↓</div>
+                        <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-arrow">↓</span></div>
                         <div class="code-line"><span class="code-keyword">GitHub</span> creates branch</div>
-                        <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;↓</div>
+                        <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-arrow">↓</span></div>
                         <div class="code-line"><span class="code-keyword">AI</span> writes code with tests</div>
-                        <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;↓</div>
+                        <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-arrow">↓</span></div>
                         <div class="code-line"><span class="code-function">🚀</span> <span class="code-string">Merged and deployed!</span></div>
                         <div class="code-line">&nbsp;</div>
                         <div class="code-line"><span class="code-comment"># Cost: ~$30/month</span></div>
@@ -826,72 +875,58 @@
                 </div>
             </div>
             
-            <div class="cards-grid">
-                <div class="card" style="text-align: center;">
-                    <span style="font-size: 2.8rem; font-weight: 800; background: linear-gradient(135deg, var(--primaryLight), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 16px; display: block;">📖</span>
-                    <h3 class="card-title">Read Codebase</h3>
-                    <p class="card-desc">Understands entire project</p>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">📖</div>
+                    <div class="stat-value">10x</div>
+                    <div class="stat-label">Faster Development</div>
                 </div>
-                <div class="card" style="text-align: center;">
-                    <span style="font-size: 2.8rem; font-weight: 800; background: linear-gradient(135deg, var(--primaryLight), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 16px; display: block;">✨</span>
-                    <h3 class="card-title">Write Features</h3>
-                    <p class="card-desc">From scratch with tests</p>
+                <div class="stat-card">
+                    <div class="stat-icon">🐛</div>
+                    <div class="stat-value">-80%</div>
+                    <div class="stat-label">Fewer Bugs</div>
                 </div>
-                <div class="card" style="text-align: center;">
-                    <span style="font-size: 2.8rem; font-weight: 800; background: linear-gradient(135deg, var(--primaryLight), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 16px; display: block;">🐛</span>
-                    <h3 class="card-title">Debug Issues</h3>
-                    <p class="card-desc">Find and fix bugs</p>
+                <div class="stat-card">
+                    <div class="stat-icon">📚</div>
+                    <div class="stat-value">Always</div>
+                    <div class="stat-label">Up-to-date Docs</div>
                 </div>
-                <div class="card" style="text-align: center;">
-                    <span style="font-size: 2.8rem; font-weight: 800; background: linear-gradient(135deg, var(--primaryLight), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 16px; display: block;">🧪</span>
-                    <h3 class="card-title">Write Tests</h3>
-                    <p class="card-desc">Unit tests included</p>
+                <div class="stat-card">
+                    <div class="stat-icon">😊</div>
+                    <div class="stat-value">Less</div>
+                    <div class="stat-label">Developer Stress</div>
                 </div>
             </div>
         </section>
         
-        <section class="section">
-            <div class="section-header">
-                <div class="section-number">05</div>
-                <div>
-                    <h2 class="section-title">The Results</h2>
-                    <p class="section-subtitle">Real Impact</p>
-                </div>
-            </div>
-            
-            <div class="cards-grid">
-                <div class="card" style="text-align: center;">
-                    <span style="font-size: 3rem; margin-bottom: 16px; display: block;">⚡</span>
-                    <h3 class="card-title" style="font-size: 2rem; background: linear-gradient(135deg, var(--primaryLight), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">10x</h3>
-                    <p class="card-desc">Faster Development</p>
-                </div>
-                <div class="card" style="text-align: center;">
-                    <span style="font-size: 3rem; margin-bottom: 16px; display: block;">🐛</span>
-                    <h3 class="card-title" style="font-size: 2rem; background: linear-gradient(135deg, var(--secondary), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">-80%</h3>
-                    <p class="card-desc">Fewer Bugs</p>
-                </div>
-                <div class="card" style="text-align: center;">
-                    <span style="font-size: 3rem; margin-bottom: 16px; display: block;">📚</span>
-                    <h3 class="card-title" style="font-size: 2rem; background: linear-gradient(135deg, var(--accent), var(--primaryLight)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Always</h3>
-                    <p class="card-desc">Up-to-date Docs</p>
-                </div>
-                <div class="card" style="text-align: center;">
-                    <span style="font-size: 3rem; margin-bottom: 16px; display: block;">😊</span>
-                    <h3 class="card-title" style="font-size: 2rem; background: linear-gradient(135deg, var(--primaryLight), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Less</h3>
-                    <p class="card-desc">Developer Stress</p>
-                </div>
-            </div>
-            
-            <div class="quote-section">
-                <p class="quote">
-                    "The best developer on your team might not be human."
-                </p>
-                <p class="quote-author">— balagurutradestox</p>
-            </div>
+        <!-- Quote Section -->
+        <section class="quote-section">
+            <p class="quote-text">
+                "The best developer on your team might not be human."
+            </p>
+            <p class="quote-author">— balagurutradestox</p>
         </section>
         
-        <div class="cta-section">
-            <h2>Ready to Build Your Own AI Developer?</h2>
-            <p>Join me in the future of development. Your AI junior developer awaits!</p>
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <h2 class="cta-title">Ready to Build Your Own AI Developer?</h2>
+            <p class="cta-text">Join me in the future of development. Your AI junior developer awaits!</p>
             <div class="cta-buttons">
-                <a href="https://github.com/balagurutradestox" class="cta-btn cta-btn-primary">📂 View
+                <a href="https://github.com/balagurutradestox" class="cta-btn cta-btn-primary">📂 View My GitHub</a>
+                <a href="https://github.com/openclaw/openclaw" class="cta-btn cta-btn-secondary">🦞 Explore OpenClaw</a>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <p class="footer-text">Built with 💙 using OpenClaw + MiniMax</p>
+            <p class="footer-subtext">Your AI Coder Companion</p>
+            <div class="footer-links">
+                <a href="https://github.com/balagurutradestox" class="footer-link">GitHub</a>
+                <a href="https://github.com/openclaw/openclaw" class="footer-link">OpenClaw</a>
+            </div>
+            <p class="footer-copyright">© 2026 balagurutradestox</p>
+        </footer>
+    </div>
+</body>
+</html>
